@@ -1,85 +1,74 @@
 import java.util.Random;
 
 public class Participant {
-    public Card[] Deck;
-    public int Score;
-    private String HS;
-
-    public Participant(int length, int score, String hs) {
-        Deck = new Card[length];
-        Score = score;
-        HS = hs;
+    private Card[] deck;
+    private int score;
+    private int money;
+    public Participant(int length, int score, int money){
+        deck = new Card[length];
+        this.score = score;
+        this.money = money;
     }
-
+    public int getMoney() {return money;}
+    public void setMoney(int money) {this.money = money;}
     public int getScore() {
-        return Score;
+        return score;
     }
 
-    public String getHS() {
-        return HS;
-    }
+    public void setScore(int score) {this.score = score;}
 
-    public void setHS(String HS) {
-        this.HS = HS;
-    }
-
-    public int getCardCount() {
+    public Card[] getDeck() { return deck; }
+    public int getCardCount(){
         return countCard();
     }
-
-    public void addCard(Card[][] cards) {
+    public void addCard(Card[][] cards){
         Random r = new Random();
         int suitNum;
         int rankNum;
-
-        while (true) {
+        while (true)
+        {
             suitNum = r.nextInt(4);
             rankNum = r.nextInt(13);
-
-            if (cards[suitNum][rankNum] == null) {
+            if (cards[suitNum][rankNum] == null){
                 continue;
             }
-
             break;
         }
-
-        Deck[countCard()] = new Card(suitNum, rankNum);
+        deck[countCard()] = new Card(suitNum, rankNum);
         cards[suitNum][rankNum] = null;
-
-        Score += Deck[countCard() - 1].score;
-
-        if (Score > 21) {
-            Score = scoreCal();
+        score += deck[countCard()-1].score;
+        if (score > 21){
+            score = scoreCal();
         }
     }
-
-    private int scoreCal() {
+    public void clearDeck() {
+        for (int i = 0; i < deck.length; i++) {
+            deck[i] = null;
+        }
+    }
+    private int scoreCal(){
         int point = 0;
-
         for (int i = 0; i < countCard(); i++) {
-            if (Deck[i].rank.equals("A")) {
-                Deck[i].setScore(1);
+            if (deck[i].rank.equals("A")){
+                deck[i].setScore(1);
             }
         }
-
-        for (int i = 0; i < countCard(); i++) {
-            point += this.Deck[i].score;
+        for (int i = 0; i < countCard(); i++){
+            point += this.deck[i].score;
         }
-
         return point;
     }
-
-    private int countCard() {
+    private int countCard (){
         int numberOfCard = 0;
-
-        for (int i = 0; i < Deck.length; i++) {
-            if (Deck[i] != null) {
+        for (int i = 0; i < deck.length; i++){
+            if (deck[i] != null){
                 numberOfCard++;
-            } else {
+            }
+            else {
                 return numberOfCard;
             }
         }
-
         return numberOfCard;
     }
 }
+

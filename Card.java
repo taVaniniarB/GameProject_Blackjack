@@ -2,18 +2,17 @@ class Card {
     String suit, rank;
     int score;
 
-    public Card(int inputSuit, int inputRank) {
+    public Card(int inputSuit, int inputRank){
         suit = convertSuit(inputSuit);
         rank = convertRank(inputRank);
         score = cardScore();
     }
-
     public void setScore(int score) {
         this.score = score;
     }
 
-    private int cardScore() {
-        switch (this.rank) {
+    private int cardScore(){
+        switch (this.rank){
             case "A":
                 return 11;
             case "2":
@@ -33,9 +32,8 @@ class Card {
         }
         return 0;
     }
-
-    private String convertSuit(int num) {
-        switch (num) {
+    private String convertSuit(int num){
+        switch (num){
             case 0:
                 return "♠";
             case 1:
@@ -48,8 +46,9 @@ class Card {
         return null;
     }
 
-    private String convertRank(int num) {
-        switch (num) {
+
+    private String convertRank(int num){
+        switch (num){
             case 0:
                 return "A";
             case 1:
@@ -61,7 +60,7 @@ class Card {
             case 7:
             case 8:
             case 9:
-                return String.valueOf(num + 1);
+                return String.valueOf(num+1);
             case 10:
                 return "J";
             case 11:
